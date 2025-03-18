@@ -7,7 +7,6 @@ const generateHash = async (data) => {
         return isHashed
     } catch (error) {
         console.log(error);
-
     }
 }
 
