@@ -1,3 +1,4 @@
+const { JWT_ACCESS_EXPIRE, JWT_REFRESH_EXPIRE } = require("../config/config")
 const UserModel = require("../models/user.model")
 const { generateHash, verifyHash } = require("../utils/crypto")
 const { generateToken } = require("../utils/jwt")
@@ -17,13 +18,21 @@ const registerAuthController = async (request, response, next) => {
 const loginAuthController = async (request, response, next) => {
     try {
         const { email, password } = request.body
-        const user = await UserModel.findOne({ email: email })
-        if (!user) response.status(404).json({ message: "No user found. login again" })
+        const user = await UserModel.findOne({ email: email }).select("+password")
+        if (!user) response.status(404).json({ message: "No user found, Register first." })
 
         const isVarified = await verifyHash(password, user.password)
         if (!isVarified) response.status(403).json({ message: "Invalid creadintial" })
-        const accessToken = generateToken()
-
+        const payload = {
+            userId: user._id,
+            name: user.name,
+            role: user.role
+        }
+        const accessToken = await generateToken("ACCESS", payload, expIn = JWT_ACCESS_EXPIRE)
+        const refreshToken = await generateToken("REFRESH", payload, expIn = JWT_REFRESH_EXPIRE)
+        response.cookie("access", accessToken)
+        response.cookie("refresh", refreshToken)
+        response.status(200).json({ message: "Login successfuly", token: { accessToken, refreshToken } })
     } catch (error) {
 
     }
