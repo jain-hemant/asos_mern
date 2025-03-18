@@ -1,6 +1,6 @@
 const registerAuthController = async () => {
     try {
-
+        console.log("Register Auth Controller")
     } catch (error) {
 
     }
@@ -8,6 +8,7 @@ const registerAuthController = async () => {
 
 const loginAuthController = async () => {
     try {
+        console.log("login Auth Controller")
 
     } catch (error) {
 

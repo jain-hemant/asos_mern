@@ -1,0 +1,4 @@
+// Register User
+# POST http://localhost:8081/api/v1/auth/register 
+// Login User
+# POST http://localhost:8081/api/v1/auth/login
