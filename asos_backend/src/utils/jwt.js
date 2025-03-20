@@ -8,7 +8,7 @@ const generateToken = async (tokenType = "ACCESS", payload, expIn) => {
         const token = jwt.sign(payload, secretKey, { expiresIn: expIn })
         return token
     } catch (error) {
-        console.log(error)
+        return 
     }
 }
 
@@ -20,6 +20,7 @@ const verifyToken = async (tokenType = "ACCESS", token) => {
         return payload
     } catch (error) {
         console.log(error)
+        return null
     }
 }
 

@@ -30,8 +30,8 @@ const loginAuthController = async (request, response, next) => {
         }
         const accessToken = await generateToken("ACCESS", payload, expIn = JWT_ACCESS_EXPIRE)
         const refreshToken = await generateToken("REFRESH", payload, expIn = JWT_REFRESH_EXPIRE)
-        response.cookie("access", accessToken)
-        response.cookie("refresh", refreshToken)
+        response.cookie("access", accessToken, { maxAge: JWT_ACCESS_EXPIRE })
+        response.cookie("refresh", refreshToken, { maxAge: JWT_REFRESH_EXPIRE })
         response.status(200).json({ message: "Login successfuly", token: { accessToken, refreshToken } })
     } catch (error) {
 
