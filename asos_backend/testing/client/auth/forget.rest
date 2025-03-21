@@ -1,0 +1,12 @@
+PATCH http://localhost:8081/api/v1/auth/forget
+Content-Type: application/json
+
+# {
+#     "email":"Honey@gmail.com",
+#     "password":"12345678"
+# }
+{
+    "forgetType":"password",
+    "email":"priya.iyer@example.com",
+    "newPassword":"Test@123"
+}

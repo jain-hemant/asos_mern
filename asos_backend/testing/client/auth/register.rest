@@ -1,0 +1,30 @@
+// Register User
+POST http://localhost:8081/api/v1/auth/register
+Content-Type: application/json
+
+{
+        "name": "Amit Verma",
+        "email": "amit@gmail.com",
+        "emailVerified": false,
+        "phone": "9876543211",
+        "phoneVerified": false,
+        "password": "Test@123",
+        "role": "Seller",
+        "gender": "Male",
+        "profilePicture": null,
+        "address": {
+            "country": "India",
+            "state": "Delhi",
+            "district": "New Delhi",
+            "city": "New Delhi",
+            "zip": "110001",
+            "latitude": "",
+            "longitude": ""
+        },
+        "wishlist": [],
+        "cart": [],
+        "orders": [],
+        "accountStatus": "Active",
+        "createdAt": "2025-03-20T12:00:00.000Z",
+        "updatedAt": "2025-03-20T12:00:00.000Z"
+    }

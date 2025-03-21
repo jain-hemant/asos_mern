@@ -1,4 +1,20 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
+
+const AddressSchema = new mongoose.Schema({
+    country: { type: String, required: true },
+    state: { type: String, required: true },
+    district: { type: String, required: true },
+    city: { type: String, required: true },
+    zip: { type: String, required: true },
+    latitude: { type: String },
+    longitude: { type: String },
+}, { _id: false });
+
+const CartItemSchema = new mongoose.Schema({
+    productId: { type: mongoose.Schema.Types.ObjectId, ref: "Product", required: true },
+    size: String,
+    quantity: { type: Number, required: true, default: 1 },
+}, { _id: false });
 
 const UserSchema = new mongoose.Schema({
     name: {
@@ -9,37 +25,38 @@ const UserSchema = new mongoose.Schema({
     email: {
         type: String,
         required: [true, 'Email is required'],
-        unique: true, // Ensure email is unique
+        unique: true,
         lowercase: true,
         trim: true,
         match: [/.+@.+\..+/, 'Please provide a valid email address'],
     },
+    emailVerified: { type: Boolean, default: false }, // Email verification status
+    phone: {
+        type: String,
+        required: true,
+        minlength: 10,
+        maxLength: 10,
+        unique: true,
+    },
+    phoneVerified: { type: Boolean, default: false }, // Phone verification status
     password: {
         type: String,
         required: [true, 'Password is required'],
         minlength: [6, 'Password must be at least 6 characters'],
-        select: false
+        select: false,
     },
-    role: { type: String, enum: ["ADMIN", "USER"], default: "USER" },
-    phone: {
-        type: String,
-        require: true,
-        minlength: 10,
-        maxLength: 10
-    },
-    gender: { type: String, require: true },
-    address: {
-        country: { type: String, require: true },
-        state: { type: String, require: true },
-        district: { type: String, require: true },
-        city: { type: String, require: true },
-        zip: { type: String, require: true },
-        latitude: { type: String },
-        longitude: { type: String },
-    },
+    role: { type: String, enum: ["Customer", "Seller"], default: "Customer" },
+    gender: { type: String, required: true, enum: ["Male", "Female", "Other"] },
+    profilePicture: { type: String, default: null }, // Profile Image URL
+    address: AddressSchema,
+    wishlist: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }], // User Wishlist
+    cart: [CartItemSchema], // User Cart
+    orders: [{ type: mongoose.Schema.Types.ObjectId, ref: "Order" }], // User Orders
+    accountStatus: { type: String, enum: ["Active", "Suspendad", "Banned"], default: "Active" }, // Account status
     createdAt: { type: Date, default: Date.now },
-}, { versionKey: false })
+    updatedAt: { type: Date, default: Date.now },
+}, { versionKey: false, timestamps: true });
 
-const UserModel = mongoose.model("user", UserSchema)
+const UserModel = mongoose.model("User", UserSchema);
 
-module.exports = UserModel
+module.exports = UserModel;
