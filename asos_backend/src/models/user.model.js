@@ -55,6 +55,10 @@ const UserSchema = new mongoose.Schema({
     accountStatus: { type: String, enum: ["Active", "Suspendad", "Banned"], default: "Active" }, // Account status
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
+    // Seller-specific fields
+    businessName: { type: String, trim: true },
+    gstNumber: { type: String, trim: true },
+    sellerDocuments: [{ type: String }], // Can store document URLs
 }, { versionKey: false, timestamps: true });
 
 const UserModel = mongoose.model("User", UserSchema);
