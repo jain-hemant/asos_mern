@@ -10,6 +10,6 @@ const app = express()
 app.use(express.json())
 app.use(cookieParser())
 app.use("/api/v1", routes)
-app.use("/api/v1/test", accessControl(["ADMIN"]), testRouter)
+app.use("/api/v1/test", accessControl(["Customer"]), testRouter)
 
 module.exports = app

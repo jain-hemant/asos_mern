@@ -21,6 +21,12 @@ const ProductSchema = new mongoose.Schema(
         images: [String],
         stock: { type: Number, required: true },
         ratings: [RatingSchema],
+        salesCount: { type: Number, default: 0 }, // Tracks number of sales
+        seller: {
+            id: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+            name: { type: String, required: true },
+            businessName: { type: String }
+        },
     },
     { timestamps: true }
 );

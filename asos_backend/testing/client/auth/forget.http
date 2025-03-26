@@ -7,6 +7,6 @@ Content-Type: application/json
 # }
 {
     "forgetType":"password",
-    "email":"priya.iyer@example.com",
+    "email":"neha.kapoor@example.com",
     "newPassword":"Test@123"
 }
